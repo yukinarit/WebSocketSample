@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RollABall.RPC
+namespace WebSocketSample.RPC
 {
 
 [System.Serializable]
@@ -191,5 +191,5 @@ public class PingPayload
 	public string name;
 }
 
-} // namespace RollABall
+} // namespace WebSocketSample
 

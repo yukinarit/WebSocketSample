@@ -5,10 +5,10 @@ using WebSocketSharp;
 using WebSocketSharp.Server;
 using Newtonsoft.Json;
 
-using RollABall.RPC;
+using WebSocketSample.RPC;
 
 
-namespace RollABall.Server
+namespace WebSocketSample.Server
 {
 	class MainClass
 	{
@@ -49,7 +49,7 @@ namespace RollABall.Server
 		{
 			this.address = address;
 			ws = new WebSocketServer(address);
-			ws.AddWebSocketService<RollABall>("/");
+			ws.AddWebSocketService<WebSocketSampleService>("/");
 		}
 
 		static public GameServer GetInstance(string address = DEFAULT_ADDRESS)
@@ -98,7 +98,7 @@ namespace RollABall.Server
 				return;
 			}
 
-			var playerPositions = new List<global::RollABall.RPC.Player>();
+			var playerPositions = new List<global::WebSocketSample.RPC.Player>();
 			foreach (var kv in players)
 			{
 				var uid = kv.Key;
@@ -108,7 +108,7 @@ namespace RollABall.Server
 					continue;
 				}
 				playerPositions.Add(
-					new global::RollABall.RPC.Player(
+					new global::WebSocketSample.RPC.Player(
 						player.uid,
 						player.x,
 						player.y,
@@ -249,7 +249,7 @@ namespace RollABall.Server
 		}
 	}
 
-	public class RollABall : WebSocketBehavior
+	public class WebSocketSampleService : WebSocketBehavior
 	{
 		protected override void OnOpen()
 		{
