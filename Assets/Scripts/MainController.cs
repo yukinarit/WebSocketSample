@@ -46,6 +46,13 @@ public class MainController : MonoBehaviour
 
 		// サーバーへ接続
 		ws.Connect();
+
+		// Ping
+		ws.Send(
+			@"{
+				""method"": ""ping""
+			}"
+		);
 	}
 
 	void Update()

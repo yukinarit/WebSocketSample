@@ -184,7 +184,7 @@ namespace WebSocketSample.Server
 				)
 			);
 
-			sendTo(senderId, msg);
+			SendTo(senderId, msg);
 
 			Console.WriteLine("<< Register Response");
 		}
@@ -221,9 +221,9 @@ namespace WebSocketSample.Server
 			}
 		}
 
-		void sendTo(string id, string msg)
+		public void SendTo(string id, string msg)
 		{
-			Console.WriteLine("sendTo: " + id + " " + msg);
+			Console.WriteLine("SendTo: " + id + " " + msg);
 			var ws = GameServer.GetInstance().GetWebSocketServer();
 			ws.WebSocketServices["/"].Sessions.SendTo(
 				msg, id
@@ -291,7 +291,18 @@ namespace WebSocketSample.Server
 			var sv = GameServer.GetInstance();
 			var senderId = ID;
 
-			if (header.method == "register")
+			if (header.method == "ping")
+			{
+				sv.SendTo(
+					senderId,
+					"{" +
+					    @"""method"": ""pong""" +
+					"}"
+				);
+
+				Console.WriteLine("<< pong");
+			}
+			else if (header.method == "register")
 			{
 				sv.RunOnMainThread(() => {
 					sv.Register(senderId, e);
