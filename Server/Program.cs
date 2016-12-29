@@ -216,7 +216,7 @@ namespace WebSocketSample.Server
 				player.SetPos(
 					pos.payload.x,
 					pos.payload.y,
-					pos.payload.y
+					pos.payload.z
 				);
 			}
 		}
