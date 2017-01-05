@@ -128,7 +128,7 @@ namespace WebSocketSample.Server
 
 			var msg = JsonConvert.SerializeObject(sync);
 
-			broadcast(msg);
+			Broadcast(msg);
 		}
 
 		void PollKey()
@@ -230,7 +230,7 @@ namespace WebSocketSample.Server
 			);
 		}
 
-		void broadcast(string msg)
+		public void Broadcast(string msg)
 		{
 			Console.WriteLine("broeadcast: " + msg);
 			var ws = GameServer.GetInstance().GetWebSocketServer();
@@ -301,6 +301,20 @@ namespace WebSocketSample.Server
 				);
 
 				Console.WriteLine("<< pong");
+			}
+			else if (header.method == "broadcast")
+			{
+				var bcast = JsonConvert.DeserializeObject<Broadcast>(e.Data);
+
+				var msg = bcast.payload.message;
+				sv.Broadcast(
+					"{" +
+					    "\"method\": \"broadcast_response\"," +
+						"\"payload\": {\"message\": \"" + msg + "\"}" +
+					"}"
+				);
+
+				Console.WriteLine("<< broadcast" + msg);
 			}
 			else if (header.method == "register")
 			{

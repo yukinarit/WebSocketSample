@@ -4,12 +4,16 @@ using System.Collections;
 
 using WebSocketSharp;
 
+using WebSocketSample.RPC;
+
 namespace WebSocketSample
 {
 
 public class MainController : MonoBehaviour
 {
 	WebSocket ws; // WebSocketコネクション
+
+	DateTime lastBroadcasted = DateTime.Now; // 最後にbroadcastした時刻
 
 	void Start()
 	{
@@ -57,6 +61,19 @@ public class MainController : MonoBehaviour
 
 	void Update()
 	{
+		var now = DateTime.Now;
+		var d = now - lastBroadcasted;
+
+		// 3秒毎にブロードキャストする
+		if (d.Seconds >= 3)
+		{
+			// Broadcast
+			var broadcast = new Broadcast("Hello world!");
+			var serialized = JsonUtility.ToJson(broadcast);
+			ws.Send(serialized);
+
+			lastBroadcasted = now;
+		}
 	}
 }
 

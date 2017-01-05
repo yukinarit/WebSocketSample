@@ -11,6 +11,29 @@ public class Header
 }
 
 [System.Serializable]
+public class Broadcast
+{
+	public Broadcast(string message)
+	{
+		payload = new BroadcastPayload(message);
+	}
+
+	public string method = "broadcast";
+	public BroadcastPayload payload;
+}
+
+[System.Serializable]
+public class BroadcastPayload
+{
+	public BroadcastPayload(string message)
+	{
+		this.message = message;
+	}
+
+	public string message;
+}
+
+[System.Serializable]
 public class Pos
 {
 	public Pos(int uid, float x, float y, float z)
