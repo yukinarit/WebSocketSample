@@ -24,6 +24,13 @@ public class MainController : MonoBehaviour
 		ws.OnOpen += (sender, e) =>
 		{
 			Debug.Log("WebSocket opened.");
+
+			// Ping
+			ws.Send(
+				@"{
+					""method"": ""ping""
+				}"
+			);
 		};
 
 		// メッセージを受信したときのハンドラ
@@ -46,13 +53,6 @@ public class MainController : MonoBehaviour
 
 		// サーバーへ接続
 		ws.Connect();
-
-		// Ping
-		ws.Send(
-			@"{
-				""method"": ""ping""
-			}"
-		);
 	}
 
 	void Update()
