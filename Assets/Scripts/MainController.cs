@@ -41,7 +41,7 @@ public class MainController : MonoBehaviour
 		// コネクションを閉じたときのハンドラ
 		ws.OnClose += (sender, e) =>
 		{
-			Debug.Log("WebSocket Close");
+			Debug.Log("WebSocket Close: " + e.Reason);
 		};
 
 		// サーバーへ接続
