@@ -14,6 +14,7 @@ public class MainController : MonoBehaviour
 	Queue<Action> actions = new Queue<Action>(); // 非同期タスク
 
 	GameObject player; // プレイヤー
+	string name; // プレイヤー名
 	int playerId; // プレイヤーID
 	Vector3 prevPosition; // 一つ前の位置
 	Dictionary<int, GameObject> otherPlayers = new Dictionary<int, GameObject>(); // 他プレイヤー
@@ -72,6 +73,9 @@ public class MainController : MonoBehaviour
 			Quaternion.identity
 		);
 
+		// Player名
+		name = "yukianri";
+
 		// アカウント登録
 		Register(player);
 	}
@@ -89,13 +93,21 @@ public class MainController : MonoBehaviour
 		if (player != null && prevPosition != player.transform.position)
 		{
 			var current = player.transform.position;
-			var pos = new Pos(
+			var msg = String.Format(
+				@"{{
+					""method"": ""pos"",
+					""payload"": {{
+						""uid"": ""{0}"",
+						""x"": ""{1}"",
+						""y"": ""{2}"",
+						""z"": ""{3}""
+					}}
+				}}",
 				playerId,
 				current.x,
 				current.y,
 				current.z
 			);
-			var msg = JsonUtility.ToJson(pos);
 			Debug.Log("JSON: " + msg);
 
 			// サーバーに位置送信
@@ -155,8 +167,15 @@ public class MainController : MonoBehaviour
 	{
 		Debug.Log(">> Register");
 
-		var register = new Register("yukinari");
-		var msg = JsonUtility.ToJson(register);
+		var msg = String.Format(
+			@"{{
+				""method"": ""register"",
+				""payload"": {{
+					""name"": ""{0}""
+				}}
+			}}",
+			name
+		);
 		Debug.Log("JSON: " + msg);
 		ws.Send(msg);
 	}
@@ -180,8 +199,18 @@ public class MainController : MonoBehaviour
 	{
 		Debug.Log(">> Login");
 
-		var login = new Login(playerId, "yukinari");
-		var msg = JsonUtility.ToJson(login);
+		var msg = String.Format(
+			@"{{
+				""method"": ""login"",
+				""payload"": {{
+					""uid"": ""{0}"",
+					""name"": ""{1}""
+				}}
+			}}",
+			playerId,
+			name
+		);
+		Debug.Log("JSON: " + msg);
 		ws.Send(msg);
 	}
 
