@@ -41,6 +41,10 @@ mono Server.exe
 
 ## Protocols
 
+![](img/RollABoll_flow.png "flow")
+
+![](img/RollABoll_structure.png "structure")
+
 クライント/サーバー間のプロトコルの仕様
 
 * アカウント登録(Client -> Server)
