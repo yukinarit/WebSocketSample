@@ -53,7 +53,7 @@ mono Server.exe
 }
 ```
 
-* アカウント登録レスポンス(Client -> Server)
+* アカウント登録レスポンス(Server -> Client)
 ```
 {
    "method": "register_response",
@@ -92,7 +92,6 @@ mono Server.exe
 {
    "method": "sync",
    "payload": {
-		"uid": <プレイヤーID>,
 		"players": [
 			{ "uid": <プレイヤー1のID>, "x": <プレイヤー1のX座標>, "y": <プレイヤー1のY座標>, "z": <プレイヤー1のZ座標> },
 			{ "uid": <プレイヤー2のID>, "x": <プレイヤー2のX座標>, "y": <プレイヤー2のY座標>, "z": <プレイヤー2のZ座標> },
