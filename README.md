@@ -12,7 +12,13 @@ WebSocketサーバーを使って自分と他プレイヤーの位置を同期�
 
 ## Build
 
+* cloneする時に--recursiveしていなければ
+```
+git submodule --init --recursive
+```
+
 * クライアント
+
 Unityで実行
 
 * サーバー
